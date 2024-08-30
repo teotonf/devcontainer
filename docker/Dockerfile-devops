@@ -34,6 +34,10 @@ ARG TMP_APPS_DIR=/tmp/apps/install
 
 RUN mkdir -p ${TMP_APPS_DIR}
 
+# Install nektos/act
+RUN curl --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/nektos/act/master/install.sh |\
+  bash
+
 # Install docker
 # Add Docker's official GPG key:
 RUN install -m 0755 -d /etc/apt/keyrings &&\
