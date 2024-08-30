@@ -1,0 +1,54 @@
+version: "3"
+
+services:
+  my-devContainer:
+    build:
+      context: ../docker
+      dockerfile: Dockerfile-devops
+      args:
+        USER: ${USER}
+    image: my-dev-container
+    container_name: my-dev-container
+    user: ${USER}
+    volumes:
+      - ..:/home/${USER}/workspace:cached
+      - ${KUBECONFIG_LOCATION}:/home/${USER}/.kube:rw
+
+    command: /bin/sh -c "while sleep 1000; do :; done"
+    network_mode: service:vault
+
+  vault:
+    image: hashicorp/vault
+    container_name: my-vault
+    volumes:
+      - vault-logs:/vault/logs:rw
+      - vault-files:/vault/files:rw
+      - ./config.hcl:/vault/config/vault-config.hcl
+    cap_add:
+      - IPC_LOCK
+    entrypoint: vault server -config=/vault/config/vault-config.hcl
+    network_mode: "host"
+
+  pgadmin:
+      # image: dpage/pgadmin4
+      image: dpage/pgadmin4:latest
+      container_name: pgadmin4
+      environment:
+        - PGADMIN_DEFAULT_EMAIL=bede.apps@gmail.com
+        - PGADMIN_DEFAULT_PASSWORD=fran          
+      ports:
+        - 8081:80    
+      networks:
+        - dev-network
+      volumes:
+        - pgadmin-data:/var/lib/pgadmin
+
+volumes:
+  vault-logs:
+  vault-files:
+  pgadmin-data:
+
+networks:
+  dev-network:
+    name: pg-network
+    driver: bridge
