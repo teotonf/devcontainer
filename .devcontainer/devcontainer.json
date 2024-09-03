@@ -17,7 +17,6 @@
 	},
 	"mounts": [
 		"source=${localEnv:CERTIFICATES_LOCATION},target=/home/${localEnv:USER}/certificates,type=bind,consistency=cached",
-		"source=${localEnv:SSH_KEYS_LOCATION},target=/home/${localEnv:USER}/.ssh,type=bind,consistency=cached",
 		"source=${localWorkspaceFolder}/.devcontainer/postCreateCmds.sh,target=/home/${localEnv:USER}/postCreate.sh,type=bind,consistency=cached",
 		"source=${localEnv:DEVOPS_WORKSPACE},target=/home/${localEnv:USER}/workspace,type=bind,consistency=cached",
 		"source=${localWorkspaceFolder}/compose/config.hcl,target=/home/${localEnv:USER}/config.hcl,type=bind,consistency=cached",
@@ -41,6 +40,8 @@
 		"DOCKER_HOST": "tcp://192.168.0.3:2376",
 		"DOCKER_TLS": "1",
 		"DOCKER_TLS_VERIFY": "1",
-		"NOTE_IP": "192.168.0.7"
+		"NOTE_IP": "192.168.0.7",
+		"HOST_DEVOPS_WORKSPACE": "${localEnv:DEVOPS_WORKSPACE}",
+		"HOST_CERTIFICATES_LOCATION": "${localEnv:CERTIFICATES_LOCATION}"
 	}
 }

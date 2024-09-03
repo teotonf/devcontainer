@@ -13,6 +13,7 @@ services:
     volumes:
       - ..:/home/${USER}/workspace:cached
       - ${KUBECONFIG_LOCATION}:/home/${USER}/.kube:rw
+      - ${SSH_KEYS_LOCATION}:/home/${USER}/.ssh
 
     command: /bin/sh -c "while sleep 1000; do :; done"
     network_mode: service:vault
@@ -30,18 +31,17 @@ services:
     network_mode: "host"
 
   pgadmin:
-      # image: dpage/pgadmin4
-      image: dpage/pgadmin4:latest
-      container_name: pgadmin4
-      environment:
-        - PGADMIN_DEFAULT_EMAIL=bede.apps@gmail.com
-        - PGADMIN_DEFAULT_PASSWORD=fran          
-      ports:
-        - 8081:80    
-      networks:
-        - dev-network
-      volumes:
-        - pgadmin-data:/var/lib/pgadmin
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=bede.apps@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=fran          
+    ports:
+      - 8081:80    
+    networks:
+      - dev-network
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   vault-logs:
