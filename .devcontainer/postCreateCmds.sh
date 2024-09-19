@@ -11,18 +11,6 @@ alias ke='f() { kubectl get events \$@; }; f "\$@" '
 alias pg-enable='kubectl port-forward svc/main-kubegres -n kubegres --address 0.0.0.0 25432:5432'
 EOF
 
-# Unseal Vault
-[ -f $HOME/vault.json ] && {
-  echo 'Unsealing Vault'
-
-  v_addr='http://localhost:8200'
-  v_keys=$(cat $HOME/vault.json | jq '.keys[]' | xargs)
-
-  for key in $v_keys; do
-    vault operator unseal -address $v_addr $key
-  done
-}
-
 # Cloning Dracula theme for zsh
 git clone https://github.com/dracula/zsh.git $HOME/dracula-zsh
 

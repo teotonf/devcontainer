@@ -18,6 +18,7 @@
 	"mounts": [
 		"source=${localEnv:CERTIFICATES_LOCATION},target=/home/${localEnv:USER}/certificates,type=bind,consistency=cached",
 		"source=${localWorkspaceFolder}/.devcontainer/postCreateCmds.sh,target=/home/${localEnv:USER}/postCreate.sh,type=bind,consistency=cached",
+		"source=${localWorkspaceFolder}/.devcontainer/postStartCmds.sh,target=/home/${localEnv:USER}/postStart.sh,type=bind,consistency=cached",
 		"source=${localEnv:DEVOPS_WORKSPACE},target=/home/${localEnv:USER}/workspace,type=bind,consistency=cached",
 		"source=${localWorkspaceFolder}/compose/config.hcl,target=/home/${localEnv:USER}/config.hcl,type=bind,consistency=cached",
 		"source=${localWorkspaceFolder}/vault.json,target=/home/${localEnv:USER}/vault.json,type=bind,consistency=cached"
@@ -30,11 +31,13 @@
 			"extensions": [
 				"ms-azuretools.vscode-azureterraform",
 				"hashicorp.terraform",
-				"johnpapa.vscode-peacock"
+				"johnpapa.vscode-peacock",
+				"hediet.vscode-drawio"
 			]
 		}
 	},
 	"postCreateCommand": "sh -c /home/${localEnv:USER}/postCreate.sh",
+	"postStartCommand": "sh -c /home/${localEnv:USER}/postStart.sh",
 	"containerEnv": {
 		"DOCKER_CERT_PATH": "/home/${localEnv:USER}/certificates/docker",
 		"DOCKER_HOST": "tcp://192.168.0.3:2376",
