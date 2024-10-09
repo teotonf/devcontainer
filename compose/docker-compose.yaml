@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  my-devContainer:
+  my-dev-container:
     build:
       context: ../docker
       dockerfile: Dockerfile-devops
@@ -16,9 +16,9 @@ services:
       - ${SSH_KEYS_LOCATION}:/home/${USER}/.ssh
 
     command: /bin/sh -c "while sleep 1000; do :; done"
-    network_mode: service:vault
+    network_mode: service:my-vault
 
-  vault:
+  my-vault:
     image: hashicorp/vault
     container_name: my-vault
     volumes:
@@ -28,7 +28,7 @@ services:
     cap_add:
       - IPC_LOCK
     entrypoint: vault server -config=/vault/config/vault-config.hcl
-    network_mode: "host"
+    network_mode: host
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -37,7 +37,7 @@ services:
       - PGADMIN_DEFAULT_EMAIL=bede.apps@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=fran          
     ports:
-      - 8081:80    
+      - 8081:80
     networks:
       - dev-network
     volumes:

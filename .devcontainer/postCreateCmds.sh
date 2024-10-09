@@ -3,7 +3,7 @@
 cat <<EOF >> $HOME/.zshrc
 # Add kubectl alias
 alias k='f() { kubectl \$@; }; f "\$@" '
-alias kc='f() { kubectx \$@; }; f "\$@" '
+alias kx='f() { kubectx \$@; }; f "\$@" '
 alias ks='f() { kubens \$@; }; f "\$@" '
 alias ke='f() { kubectl get events \$@; }; f "\$@" '
 

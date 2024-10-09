@@ -1,8 +1,7 @@
 {
 	"name": "My-Ubuntu",
 	"dockerComposeFile": "${localWorkspaceFolder}/compose/docker-compose.yaml",
-	"service": "my-devContainer",
-	"shutdownAction": "stopCompose",
+	"service": "my-dev-container",
 	"features": {
 		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
 			"omzPlugins": "https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting.git",
@@ -20,7 +19,6 @@
 		"source=${localWorkspaceFolder}/.devcontainer/postCreateCmds.sh,target=/home/${localEnv:USER}/postCreate.sh,type=bind,consistency=cached",
 		"source=${localWorkspaceFolder}/.devcontainer/postStartCmds.sh,target=/home/${localEnv:USER}/postStart.sh,type=bind,consistency=cached",
 		"source=${localEnv:DEVOPS_WORKSPACE},target=/home/${localEnv:USER}/workspace,type=bind,consistency=cached",
-		"source=${localWorkspaceFolder}/compose/config.hcl,target=/home/${localEnv:USER}/config.hcl,type=bind,consistency=cached",
 		"source=${localWorkspaceFolder}/vault.json,target=/home/${localEnv:USER}/vault.json,type=bind,consistency=cached"
 	],
 	"workspaceFolder": "/home/${localEnv:USER}/workspace",
